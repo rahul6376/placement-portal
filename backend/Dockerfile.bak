@@ -1,0 +1,29 @@
+# ===== Stage 1: Build the application =====
+FROM maven:3.9.9-eclipse-temurin-21 AS build
+
+WORKDIR /app
+
+# Copy Maven descriptor and download dependencies first (better layer caching)
+COPY pom.xml .
+RUN mvn -q -DskipTests dependency:go-offline
+
+# Copy source and build
+COPY src ./src
+RUN mvn -q -DskipTests clean package
+
+
+# ===== Stage 2: Run the application =====
+FROM eclipse-temurin:21-jre-alpine
+
+WORKDIR /app
+
+# Copy fat jar from build stage (Spring Boot jar)
+COPY --from=build /app/target/backend-0.0.1-SNAPSHOT.jar app.jar
+
+# Render will provide PORT; our app reads it via application.properties
+ENV PORT=8081
+
+EXPOSE 8081
+
+ENTRYPOINT ["java","-jar","app.jar"]
+

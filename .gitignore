@@ -1,0 +1,40 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# BKBIET Placement Portal — Root .gitignore
+# ──────────────────────────────────────────────────────────────────────────────
+
+# ─── Environment / Secrets ─────────────────────────────────────────────────────
+.env
+.env.local
+.env.production
+*.env
+
+# ─── Node / Frontend ───────────────────────────────────────────────────────────
+node_modules/
+dist/
+.vite/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# ─── Java / Maven ──────────────────────────────────────────────────────────────
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# ─── IDE ───────────────────────────────────────────────────────────────────────
+.idea/
+.vscode/settings.json
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+
+# ─── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
